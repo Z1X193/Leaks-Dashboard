@@ -2,12 +2,12 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 export const useOrgStore = defineStore('org', () => {
-  const currentOrgId = ref('fiscalia-hermosillo')
+  const currentOrgId = ref('catastro-hermosillo')
   
   const orgs = ref([
     {
-      id: 'fiscalia-hermosillo',
-      name: 'Fiscalía Hermosillo',
+      id: 'catastro-hermosillo',
+      name: 'catastro Hermosillo',
       domain: 'hermosillo.gob.mx',
       logo: '/logos/hermosillo.png'
     },

@@ -4,7 +4,7 @@ import { RISK_LEVELS, LEAK_STATUSES, DATA_TYPES, HASH_TYPES } from '@/types/leak
 const hermosilloPosts = [
   {
     id: '1',
-    orgId: 'fiscalia-hermosillo',
+    orgId: 'catastrollo',
     emailOrUser: 'john.doe@techcorp.com',
     password: { 
       masked: 'P@ssw0rd123!', 
@@ -20,7 +20,7 @@ const hermosilloPosts = [
   },
   {
     id: '2',
-    orgId: 'fiscalia-hermosillo',
+    orgId: 'catastrollo',
     emailOrUser: 'sarah.wilson@techcorp.com',
     password: { 
       masked: '••••••••••', 
@@ -36,7 +36,7 @@ const hermosilloPosts = [
   },
   {
     id: '3',
-    orgId: 'fiscalia-hermosillo',
+    orgId: 'catastrollo',
     emailOrUser: 'admin@hermosillo.gob.mx',
     password: { 
       masked: '••••••••••', 
@@ -89,7 +89,7 @@ const aguascalientesLeaks = [
 ]
 
 const allLeaks = {
-  'fiscalia-hermosillo': hermosilloPosts,
+  'catastrollo': hermosilloPosts,
   'fiscalia-ags': aguascalientesLeaks
 }
 
@@ -163,7 +163,7 @@ export const getAnalytics = async (orgId, filters = {}) => {
   // Weekly Trends (datos reales basados en los leaks existentes)
   const weeklyTrend = {
     labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
-    values: orgId === 'fiscalia-hermosillo' 
+    values: orgId === 'catastrollo' 
       ? [1, 1, 2, 1, 0, 1] // Datos reales basados en los 3 leaks de Hermosillo
       : [1, 1, 0, 1, 0, 0]  // Datos reales basados en los 2 leaks de Aguascalientes
   }

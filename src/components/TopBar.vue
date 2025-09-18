@@ -108,7 +108,7 @@ const props = defineProps({
     type: Object,
     default: () => ({
       name: 'John Doe',
-      email: 'john@fiscalia-hermosillo.gob.mx'
+      email: 'john@catastrollo.gob.mx'
     })
   },
   isDarkMode: {

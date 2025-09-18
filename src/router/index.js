@@ -18,11 +18,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const orgStore = useOrgStore()
   
-  // Si no hay org en la query, redirigir a fiscalia-hermosillo
+  // Si no hay org en la query, redirigir a catastrollo
   if (!to.query.org) {
     next({ 
       path: to.path, 
-      query: { ...to.query, org: 'fiscalia-hermosillo' } 
+      query: { ...to.query, org: 'catastrollo' } 
     })
     return
   }

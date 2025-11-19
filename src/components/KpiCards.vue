@@ -34,6 +34,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useLeaksStore } from '@/store/leaksStore'
 
 const props = defineProps({
   orgData: {
@@ -42,39 +43,41 @@ const props = defineProps({
   }
 })
 
+const leaksStore = useLeaksStore()
+
 const kpiData = computed(() => [
   {
     id: 'total-leaks',
     label: 'Total Leaks',
-    value: '8,547',
+    value: leaksStore.kpis.totalLeaks?.toLocaleString() || '0',
     colorClass: 'text-cmint-primary',
     trend: { type: 'up', value: 12 }
   },
   {
     id: 'unique-credentials',
     label: 'Unique Credentials',
-    value: '6,394',
+    value: leaksStore.kpis.uniqueCredentials?.toLocaleString() || '0',
     colorClass: 'text-blue',
     trend: { type: 'up', value: 8 }
   },
   {
     id: 'reuse-detected',
     label: 'Reuse Detected',
-    value: '1,853',
+    value: leaksStore.kpis.reuseDetected?.toLocaleString() || '0',
     colorClass: 'text-orange',
     trend: { type: 'down', value: 5 }
   },
   {
     id: 'active-sources',
     label: 'Active Sources',
-    value: '67',
+    value: leaksStore.kpis.activeSources?.toString() || '0',
     colorClass: 'text-green',
     trend: { type: 'up', value: 3 }
   },
   {
     id: 'last-sync',
     label: 'Last Sync',
-    value: '2024-01-15 14:32:15',
+    value: leaksStore.kpis.lastSync || '2024-01-15 14:32:15',
     colorClass: 'text-medium-contrast'
   }
 ])

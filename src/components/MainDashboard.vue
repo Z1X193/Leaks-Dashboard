@@ -110,7 +110,7 @@
         
         <div class="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:shadow-xl transition-all duration-300">
           <div class="text-sm text-gray-400 mb-2">Reuse Detected</div>
-          <div class="text-3xl font-bold" style="color: #ff8c42;">{{ highRisk.toLocaleString() }}</div>
+          <div class="text-3xl font-bold" style="color: #ff8c42;">{{ reuseDetected.toLocaleString() }}</div>
         </div>
         
         <div class="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:shadow-xl transition-all duration-300">
@@ -233,12 +233,15 @@ export default {
       }
     })
     
-    const highRisk = computed(() => {
+    const reuseDetected = computed(() => {
       try {
         if (!allLeaks.value?.length) return 0
-        return allLeaks.value?.filter(leak => leak.risk === 'High' || leak.risk === 'Critical').length
+        // Calcular reuso basado en credenciales duplicadas
+        const totalCredentials = allLeaks.value.length
+        const uniqueCredentials = new Set(allLeaks.value.map(leak => leak.email)).size
+        return totalCredentials - uniqueCredentials
       } catch (error) {
-        console.error('Error accessing highRisk:', error)
+        console.error('Error accessing reuseDetected:', error)
         return 0
       }
     })
@@ -478,7 +481,7 @@ export default {
       // Computed
       totalLeaks,
       uniqueCredentials,
-      highRisk,
+      reuseDetected,
       activeSources,
       filteredLeaksData,
       domainChartData,

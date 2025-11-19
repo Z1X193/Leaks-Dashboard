@@ -201,7 +201,9 @@ const togglePassword = () => {
 
 const formatDate = (date) => {
   if (!date) return 'N/A'
-  return new Date(date).toLocaleDateString('es-ES', {
+  // Si la fecha está en formato YYYY-MM-DD, agregarle hora para evitar problemas de zona horaria
+  const dateToFormat = date.includes('-') && date.length === 10 ? `${date}T12:00:00` : date
+  return new Date(dateToFormat).toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'

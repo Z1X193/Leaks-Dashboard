@@ -660,7 +660,9 @@ const filteredLeaks = computed(() => {
 
     // Date filter
     if (dateFrom.value || dateTo.value) {
-      const leakDate = new Date(leak.dateFound)
+      // Corregir problema de zona horaria agregando hora a fecha YYYY-MM-DD
+      const dateToCheck = leak.dateFound.includes('-') && leak.dateFound.length === 10 ? `${leak.dateFound}T12:00:00` : leak.dateFound
+      const leakDate = new Date(dateToCheck)
       
       if (dateFrom.value) {
         const fromDate = new Date(dateFrom.value)
@@ -835,7 +837,9 @@ const handleMenuAction = (action, leak) => {
 
 const formatDate = (dateString) => {
   if (!dateString) return ''
-  const date = new Date(dateString)
+  // Si la fecha está en formato YYYY-MM-DD, agregarle hora para evitar problemas de zona horaria
+  const dateToFormat = dateString.includes('-') && dateString.length === 10 ? `${dateString}T12:00:00` : dateString
+  const date = new Date(dateToFormat)
   return date.toLocaleDateString('es-ES', {
     year: 'numeric',
     month: '2-digit',

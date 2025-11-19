@@ -6,9 +6,12 @@ export const useLeaksStore = defineStore('leaks', () => {
   const currentPage = ref(1)
   const pageSize = ref(10)
 
-  // Función para convertir fecha DD/MM/YYYY a YYYY-MM-DD
+  // Función para convertir fecha DD/MM/YYYY a YYYY-MM-DD (para fechas manuales)
   const convertDate = (dateStr) => {
     if (!dateStr) return new Date().toISOString().split('T')[0]
+    // Si ya está en formato YYYY-MM-DD, devolverla como está
+    if (dateStr.includes('-') && dateStr.length === 10) return dateStr
+    // Si está en formato DD/MM/YYYY, convertir
     const [day, month, year] = dateStr.split('/')
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
   }
@@ -17,6 +20,15 @@ export const useLeaksStore = defineStore('leaks', () => {
   const generateRealLeaks = () => {
     // Dataset COMPLETO - Datos originales Consumer + nuevos Catastro
     const allLeaksData = [
+      // ======= NUEVOS DATOS catastro.gob.mx__Consumer.csv (MARZO-SEPTIEMBRE 2025) =======
+      { type: 'combolist', url: 'https://catastro.gob.mx', username: 'usuario', password: 'juezprimerocivil', log_date: '2025-03-07' },
+      { type: 'combolist', url: 'http://www.catastro.gob.mx/', username: 'Iaiduma', password: 'sergio8908', log_date: '2025-03-27' },
+      { type: 'combolist', url: 'http://catastro.gob.mx', username: 'Usuario', password: 'Contrasena', log_date: '2025-04-07' },
+      { type: 'combolist', url: 'https://catastro.gob.mx/index.asp', username: 'Usuario', password: 'juezprimerocivil', log_date: '2025-05-05' },
+      { type: 'combolist', url: 'http://www.catastro.gob.mx/', username: 'Usuario', password: 'ContraseГ±a', log_date: '2025-07-24' },
+      { type: 'combolist', url: 'http://catastro.gob.mx', username: 'admin', password: 'Altadore2019', log_date: '2025-07-27' },
+      { type: 'combolist', url: 'http://www.catastro.gob.mx', username: 'Usuario', password: 'Contraseña', log_date: '2025-09-20' },
+      
       // ======= DATOS ORIGINALES Consumer_hermosillo.gob.mx.csv (AGOSTO 1-15) =======
       { type: 'combolist', url: 'http://tramites.hermosillo.gob.mx:82/tramites/register.aspx', username: 'ozg.luoszr@gmbol.cem', password: 'PEDRojeRR', log_date: '2025-08-02' },
       { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444', password: 'reyna.corral@gmail.com', log_date: '2025-08-02' },
@@ -193,10 +205,112 @@ export const useLeaksStore = defineStore('leaks', () => {
 
     // Datos del CSV Corporativo adicional
     const corporateLeaks = [
-      { type: 'combolist', url: 'http://plataformadetransparencia.org.mx/web/guest/inicio', username: 'utm.gabinete@hermosillo.gob.mx', password: 'Cocreacion30', log_date: convertDate('15/08/2025') }
+      { type: 'combolist', url: 'http://tramites.hermosillo.gob.mx:82/tramites/register.aspx', username: 'corporativo.test1@hermosillo.gob.mx', password: 'Corp2024!', log_date: '2025-11-15' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx/sistemas/', username: 'admin.sistemas@hermosillo.gob.mx', password: 'SisAdmin2025', log_date: '2025-11-16' }
     ]
 
-    const allRawLeaks = [...allLeaksData, ...corporateLeaks]
+    // ======= NUEVOS DATOS catastro.hermosillo.gob.mx__Consumer.csv (OCTUBRE-NOVIEMBRE 2025) =======
+    const newHermosilloLeaks = [
+      // Octubre 2025
+      { type: 'combolist', url: 'http://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-10-25' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx', username: '444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspxLOMR831207UQ1', password: 'Ti@nAyen51', log_date: '2025-10-25' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'CAMA8907156U4', password: 'hinata7053', log_date: '2025-10-28' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '24815', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos200', username: 'PEFB811229QF8', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229Q', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB81', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittama', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: 'fyam', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittamariel@hotmail.com', password: '248150', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '248', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: 'fyamarie', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '24', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'b', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'britta', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittam', password: '248150Fy@', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://correo.hermosillo.gob.mx', username: 'asoqui', password: '137913', log_date: '2025-10-29' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/serviciotemporal/proyectos2008/cuentaunica/registrocuentaunica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Aplazo@123', log_date: '2025-10-30' },
+      { type: 'combolist', url: 'http://hbus.hermosillo.gob.mx/Hbus/PreRegistro/PreRegistro1.php', username: 'rochamail13@gmail.com', password: 'mpLC/Fer1', log_date: '2025-10-31' },
+      { type: 'combolist', url: 'http://www.hermosillo.gob.mx/controltramites/login.aspx', username: 'Rohegi58', password: 'veneno58', log_date: '2025-10-31' },
+      
+      // Noviembre 2025
+      { type: 'combolist', url: 'https://hermosillo.gob.mx', username: '444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', password: 'HSJ040622G70|', log_date: '2025-11-01' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'MAEA6303138A8', password: 'alel6303', log_date: '2025-11-01' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'FIGJ760206NLA', password: 'anadaniela', log_date: '2025-11-04' },
+      { type: 'combolist', url: 'http://www.hermosillo.gob.mx/portaltransparencia/gabinete.aspx', username: 'ramonhernandezalmada@hotmail.com', password: '3h_tzfO1', log_date: '2025-11-05' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'P', password: 'fyamariel', log_date: '2025-11-05' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB8', password: '248150Fy@', log_date: '2025-11-05' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229', password: '248150Fy@', log_date: '2025-11-06' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB8', password: 'fyamariel', log_date: '2025-11-06' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittamariel@hotmail.com', password: '24', log_date: '2025-11-06' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '248150', log_date: '2025-11-06' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEF', password: 'fyamariel', log_date: '2025-11-06' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittamariel@hotmail.com', password: '2481', log_date: '2025-11-07' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '2', log_date: '2025-11-07' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: 'dobers.mx', password: 'iVan007', log_date: '2025-11-09' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'brittamariel@hotmail.com', password: '24815', log_date: '2025-11-09' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PE', password: 'fyamariel', log_date: '2025-11-09' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: '248150F', log_date: '2025-11-09' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx', username: 'BUMR590414FBA', password: '3u_Z[5yj)6JV4g&m+22', log_date: '2025-11-12' },
+      
+      // Stealer logs recientes - Octubre/Noviembre 2025
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-29', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://ventanilladigital.hermosillo.gob.mx/portalciudadano/', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-29', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/login', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-29', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/Tramite', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-10-29', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-10-29', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-31', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://ventanilladigital.hermosillo.gob.mx/portalciudadano/', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-31', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/login', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-10-31', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/Tramite', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-10-31', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-10-31', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-02', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://ventanilladigital.hermosillo.gob.mx/portalciudadano/', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-02', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/login', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-02', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/Tramite', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-02', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-02', ipAddress: '189.173.19.23', antivirus: 'Avast Antivirus, Windows Defender' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx/controltramites/login.aspx', username: 'rohegi58', password: 'veneno58', log_date: '2025-11-05', hostname: 'DESKTOP-PJ1QIDO', ipAddress: '187.188.34.162', osInfo: 'Windows 11', antivirus: 'Disabled', malwarePath: 'C:\\Users\\Roberto Hernandez\\AppData\\Local\\BioSecure Dynamics\\BioScan.bat', countryCode: 'MX' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-08', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://ventanilladigital.hermosillo.gob.mx/portalciudadano/', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-08', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/login', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-08', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/Tramite', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-08', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-08', ipAddress: '189.173.52.78', antivirus: 'Windows Defender, Avast Antivirus' },
+      { type: 'stealer', url: 'https://hbus.hermosillo.gob.mx/Hbus/PreRegistro/PreRegistro1.php', username: 'rochamail13@gmail.com', password: 'mpLC/Fer1', log_date: '2025-11-08', hostname: 'COMPUROCHA', ipAddress: '187.188.46.27', osInfo: 'Windows 11 24H2 build 26100 (64 Bit)', countryCode: 'MX' },
+      
+      // ======= NUEVOS DATOS export_https___catastro.hermosillo.gob.mx__1763510393967.csv (13-17 NOVIEMBRE 2025) =======
+      // Noviembre 2025 (13-17) - Datos más recientes
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-13', hostname: 'DESKTOP-UTIL3JV', ipAddress: '191.99.53.109', osInfo: 'Microsoft Windows 11 Pro (x64)' },
+      { type: 'stealer', url: 'https://ventanilladigital.hermosillo.gob.mx/portalciudadano/', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-13', hostname: 'DESKTOP-UTIL3JV', ipAddress: '191.99.53.109', osInfo: 'Microsoft Windows 11 Pro (x64)' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/login', username: 'jemd960927ih4', password: 'Dia270962', log_date: '2025-11-13', hostname: 'DESKTOP-UTIL3JV', ipAddress: '191.99.53.109', osInfo: 'Microsoft Windows 11 Pro (x64)' },
+      { type: 'stealer', url: 'https://sareh.hermosillo.gob.mx/Tramite', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-13', hostname: 'DESKTOP-UTIL3JV', ipAddress: '191.99.53.109', osInfo: 'Microsoft Windows 11 Pro (x64)' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: 'contabilidadcentrovisual@gmail.com', password: 'Dia270962', log_date: '2025-11-13', hostname: 'DESKTOP-UTIL3JV', ipAddress: '191.99.53.109', osInfo: 'Microsoft Windows 11 Pro (x64)' },
+      { type: 'combolist', url: 'http://www.hermosillo.gob.mx:444/', username: 'RENEELIUDHDZ8A@GMAIL.COM', password: 'LUNANOE2113', log_date: '2025-11-15' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:8082/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'emt001@gmail.com', password: '---------------------------------------------------------------------', log_date: '2025-11-16' },
+      { type: 'stealer', url: 'https://www.hermosillo.gob.mx:8082/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: '5256781834495199', password: '---------------------------------------------------------------------', log_date: '2025-11-16' },
+      { type: 'combolist', url: 'https://www.hermosillo.gob.mx:444/serviciotemporal/proyectos2008/servicios/inicio.aspx', username: 'cafs711114uj1', password: 'Samy2371', log_date: '2025-11-16' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'MOAR870215E64', password: 'soloporego1', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'PEFB811229QF8', password: 'fyamariel', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/ServicioTemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspxcontabilidadcentrovisual@gmai', password: 'Dia270962', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Bancomer.aspx', username: '5256782867156591', password: '546', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: 'carlosjaviermzbrr222@gmail.com', password: 'pechodelamina', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/CuentaUnica/RegistroCuentaUnica.aspx', username: '6621567807', password: 'TO?ITA08', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx5256783308109694', password: '579', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspxVILF780309BB5', password: 'Fakik0mand0', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx/comunicacion/login.aspx', username: 'admin', password: 'Admin11', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx5579100156112300', password: '577', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Pro', username: 'brittamariel@hotmail.com', password: '248150Fy@', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: 'OMARAGUIRRE', password: 'Petosomar3010', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/ServicioTemporal/Proyectos2008/servicios/Inicio.aspx', password: 'bogc490919tf5', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: '444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx5188999106293836', password: '498', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio', username: 'PEFB811229QF8', password: '248150Fy@', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Bancomer.aspx', username: '4915666417926452', password: '633', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx:444/Serviciotemporal/Proyectos2008/servicios/Inicio.aspx', username: 'RORA720728IJ4', password: '4263', log_date: '2025-11-17' },
+      { type: 'combolist', url: 'http://hermosillo.gob.mx', username: 'sergiosmg812410@gmail.com', password: 'Flema130', log_date: '2025-11-17' }
+    ]
+
+    const allRawLeaks = [...allLeaksData, ...corporateLeaks, ...newHermosilloLeaks]
     
     const leaks = allRawLeaks.map((leak, index) => {
       // Extraer dominio de la URL
@@ -306,10 +420,10 @@ export const useLeaksStore = defineStore('leaks', () => {
     const lastSync = allLeaks.value.length > 0 ? allLeaks.value[0].dateFound : ''
 
     return {
-      totalLeaks: totalLeaks.toLocaleString(),
-      uniqueCredentials: uniqueCredentials.toLocaleString(),
-      reuseDetected: reuseDetected.toLocaleString(),
-      activeSources: activeSources.toString(),
+      totalLeaks: totalLeaks,
+      uniqueCredentials: uniqueCredentials,
+      reuseDetected: reuseDetected,
+      activeSources: activeSources,
       lastSync: lastSync
     }
   })
